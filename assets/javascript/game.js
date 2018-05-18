@@ -60,25 +60,31 @@ document.onkeyup = function(event){
         // Rebuild the incomplete word if the guess is right
                         incompleteword = "";
                         for (var char = 0; char < selectedWord.length; char++ ){
-                            if (guessed.indexOf(selectedWord[char]) > -1) {
+                            if (guessed.indexOf(selectedWord[char]) > -1 && guessesLeft >0) {
                                 incompleteword = incompleteword + selectedWord[char];
+
+                                
                             }
                             else {
                                 incompleteword = incompleteword + "_"
                             }
+
                         }
         
         // Show the incomplete word in HTML
                         document.getElementById("incompleteword").innerHTML = incompleteword;
                         
-
                     }
         // Add the guess to the guessedwrong array if it is guessed wrong           
                     else if (guessedwrong.indexOf(guess) === -1){
                         guessedwrong.push(guess);
                         
         // Reduce the number of guesses left
-                        guessesLeft--;                
+                        guessesLeft--;      
+                        
+                        if (guessesLeft === 0) {
+                            document.getElementById("gameover").innerHTML = "GAME OVER"
+                        }
                     }
                     document.getElementById("guessesleft").innerHTML = guessesLeft;
         // Show user his/her incorrectly guess letters
@@ -95,13 +101,9 @@ document.onkeyup = function(event){
                     
                 }
         }
-        else if (guessesLeft === 0) {
-            document.getElementById("gameover").innerHTML = "GAME OVER"
-            }
+       
 
-        else if (incompleteword.indexOf("_" === -1)){
-            document.getElementById("gameover").innerHTML = "You Won!"
-        }
+        
     
         
     }
